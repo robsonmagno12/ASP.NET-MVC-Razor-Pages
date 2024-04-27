@@ -1,0 +1,10 @@
+@model List<Tarefa>
+
+<ul class="task-list">
+
+    @foreach (var tarefa in Model)
+    {
+        <partial name="_TaskItem" model="@tarefa" />
+    }
+
+</ul>

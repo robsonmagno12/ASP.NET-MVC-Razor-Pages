@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Testes.Programador.AspNet.Requisicoes/1.0.0": {
+        "runtime": {
+          "Testes.Programador.AspNet.Requisicoes.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Testes.Programador.AspNet.Requisicoes/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

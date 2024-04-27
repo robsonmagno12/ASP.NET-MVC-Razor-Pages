@@ -1,0 +1,31 @@
+@model Tarefa
+
+@{
+    var currentSelectedListId = (int)TempData["listSelectedId"];
+}
+
+<form class="task-crud fadeIn"
+      asp-action="CreateTask"
+      asp-route-selectedListId="@currentSelectedListId">
+    <input type="hidden" asp-for="@Model.Id">
+
+    <div class="header">
+        <h1>Cadastrar Tarefa</h1>
+        <a asp-action="CloseModal" asp-route-selectedListId="@currentSelectedListId">
+            <i class="bi bi-x-circle-fill fs-2"></i>
+        </a>
+    </div>
+
+    <div class="body">
+
+        <input asp-for="@Model.Title" placeholder="Titulo">
+        <textarea asp-for="@Model.Description" placeholder="Descrição"></textarea>
+        <input asp-for="@Model.Estimation" placeholder="Previsão de Conclusão">
+        <button type="submit" class="bg-success">
+            Salvar
+        </button>
+
+    </div>
+
+</form>
+

@@ -1,0 +1,27 @@
+@model Lista
+
+@{
+    int listSelectedId = (int)TempData["listSelectedId"];
+    var isEdit = Model.Id != 0;
+    var goToAction = isEdit ? "EditList" : "CreateList";
+
+}
+
+<form class="list-crud fadeIn" asp-action="@goToAction">
+    <input type="hidden" asp-for="@Model.Id">
+    <div class="header">
+        <h1>@(isEdit ? "Editar" : "Adicionar")</h1>
+        <a asp-action="CloseModal" asp-route-selectedListId="@listSelectedId">
+            <i class="bi bi-x-circle-fill fs-2"></i>
+        </a>
+    </div>
+
+    <div class="body">
+        <input asp-for="@Model.Title" placeholder="Título">
+
+        <button type="submit" class="bg-success">
+            Salvar
+        </button>
+    </div>
+</form>
+

@@ -1,0 +1,90 @@
+@model ShowListViewModel
+
+@{
+    var openModalLista = TempData.ContainsKey("OpenModalLista") && TempData["OpenModalLista"] is true;
+    var openModalTarefa = TempData.ContainsKey("OpenModalTarefa") && TempData["OpenModalTarefa"] is true;
+    var isListCreation = TempData.ContainsKey("OpenModalIsCreation") && TempData["OpenModalIsCreation"] is true;
+    var search = "";
+}
+<div class="to-do-list">
+    
+    <aside class="menu-lateral">
+        <div class="area-title">
+
+            <h1>To do list</h1>
+
+            <div class="actions">
+                <a 
+                    asp-action="OpenModalLista" 
+                    asp-route-selectedListId="@Model.SelectedListId"
+                    asp-route-isCreation="true"
+                >
+                    <i class="bi bi-file-earmark-plus-fill fs-3"></i>
+                </a>
+                <a class="eyes">
+                    <i class="bi bi-eye-slash-fill fs-3"></i>
+                </a>
+                 <a 
+                    asp-action="Logout" 
+                    asp-controller="Login"
+                    style="background-color: var(--first-color)"
+                >
+                    <i class="bi bi-box-arrow-right fs-4"></i>
+                </a>
+            </div>
+
+        </div>
+        <form class="search" asp-route-search="@search"  asp-route-listSelectedId="@Model.SelectedListId">
+        <div class="bg-secondary">
+            <input asp-for="@search" type="text" name="search" placeholder="Pesquisar">
+            <i class="bi bi-search fs-5"></i>
+        </div>
+        </form>
+        <div class="scroll">
+            @await Html.PartialAsync("_List", @Model)
+        </div>
+    </aside>
+
+    <div class="principal">
+        <partial name="_Cabecalho"/>
+        <div class="area-tasks">
+            @if (Model.SelectedList == null) 
+            {
+                <p class="info">Selecione uma Lista</p>
+            }
+            else if (Model.SelectedList.Tarefas.Count == 0) 
+            {
+                <p class="info">Não há tarefas para exibir</p>
+            }
+            else 
+            {
+                <div class="scroll">
+                     <partial name="_TaskList" model="@Model.SelectedList.Tarefas"/>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@if (openModalLista) 
+{
+    if (isListCreation) 
+    {
+        <div class="modal">
+            <partial name="_CadastrarLista" model="@(new Lista())"/>
+        </div>
+    }
+    else 
+    {
+        <div class="modal">
+            <partial name="_CadastrarLista" model="@Model.SelectedList"/>
+        </div>
+    }
+}
+
+@if (openModalTarefa)
+{
+    <div class="modal">
+        <partial name="_CadastrarTarefa" model="@(new Tarefa())"/>
+    </div>
+}

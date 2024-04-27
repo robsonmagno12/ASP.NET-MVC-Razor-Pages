@@ -1,0 +1,26 @@
+@model ShowListViewModel
+
+<header class="cabecalho">
+    @if (Model.SelectedListId >= 0 && Model.SelectedList != null)
+    {
+        <h1>@Model.SelectedList.Title</h1>
+        <div class="actions">
+            <a class="eyes-open">
+                <i class="bi bi-eye-fill fs-3"></i>
+            </a>
+            <a asp-action="OpenModalTarefa" asp-route-selectedListId="@Model.SelectedListId">
+                <i class="bi bi-plus-circle-fill fs-4"></i>
+            </a>
+            <a asp-action="OpenModalLista" asp-route-selectedListId="@Model.SelectedListId">
+                <i class="bi bi-pencil-fill fs-4"></i>
+            </a>
+            <a asp-action="DeleteList" asp-route-selectedListId="@Model.SelectedListId">
+                <i class="bi bi-x-octagon-fill fs-4"></i>
+            </a>
+        </div>
+    }
+</header>
+
+
+
+

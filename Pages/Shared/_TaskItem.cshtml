@@ -1,0 +1,51 @@
+@model Tarefa
+
+@{
+    var currentSelectedListId = (int)TempData["listSelectedId"];
+    var isExpired = Model.Estimation.Date < DateTime.Now.Date;
+    var expiredClass = isExpired && !Model.Done ? "bg-warning" : "";
+    var completedClass = !isExpired && Model.Done ? "bg-success" : "";
+}
+<li class="task-item">
+
+    <form class="@expiredClass @completedClass"
+          asp-action="EditTask"
+          asp-route-taskId="@Model.Id"
+          asp-route-selectedListId="@currentSelectedListId">
+        <div class="header">
+            <div class="area-1">
+                <input asp-for="@Model.Done" disabled="@(Model.Done)">
+                <h1>@Model.Title</h1>
+            </div>
+            <div class="area-2">
+
+                    <button type="submit">
+                        <i class="bi bi-floppy-fill fs-5"></i>
+                    </button>
+                    <a asp-action="RemoveTask" asp-route-taskId="@Model.Id" asp-route-selectedListId="@currentSelectedListId">
+                        <i class="bi bi-trash-fill fs-5"></i>
+                    </a>
+
+                    <a style="background-color: rgba(255, 0, 0, 0.659);"
+                       asp-action="RemoveTask"
+                       asp-route-taskId="@Model.Id"
+                       asp-route-selectedListId="@currentSelectedListId">
+                        <i class="bi bi-trash-fill fs-3"></i>
+                    </a>
+
+
+            </div>
+        </div>
+
+
+        <textarea asp-action="EditTask" eneble="@(Model.Done )"
+                  style="@(Model.Done )"
+                  asp-for="@Model.Description"
+                  placeholder="Escreva"></textarea>
+
+        <div class="info">
+            <span>Criação @Model.CreatedAt</span>
+            <span>Previsao @Model.Estimation</span>
+        </div>
+    </form>
+</li>
